@@ -1,0 +1,17 @@
+---
+cwm_crontab: 'cloudwatch'
+cwm_use_venv: True
+cwm_create_venv: "{{ cwm_use_venv }}"
+cwm_iam_policy: True
+
+# should be set only if
+cwm_aws:
+  access_key: null
+  secret_key: null
+
+cwm_user: root
+cwm_venv_path: "/home/{{ cwm_user }}/venv"
+cwm_cronfile: 'cloudwatch'
+
+cwm_flags:
+  - mem-util

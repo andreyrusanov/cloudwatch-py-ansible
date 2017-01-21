@@ -1,0 +1,16 @@
+---
+- name: check is venv exists
+  stat: path={{ cwm_venv_path }}
+  register: venv_dir
+
+- name: create virtualenv
+  shell: virtualenv {{ cwm_venv_path }} -p `which python2.7`
+  become_user: "{{ cwm_user }}"
+  when: not venv_dir.stat.exists and cwm_create_venv
+
+- fail: msg="Target virtualen {{ cwm_venv_path }} doesn't exist. Create it set cwm_create_venv in True"
+  when: not venv_dir.stat.exists and not cwm_create_venv
+
+- name: install cloudwatch_mon
+  pip: name=cloudwatchmon virtualenv=cwm_venv_path
+  become_user: "{{ cwm_user }}"

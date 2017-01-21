@@ -1,0 +1,37 @@
+---
+- pip: name=virtualenv
+
+- name: use venv
+  include: venv.yml
+  when: cwm_use_venv
+
+- name: install cloudwatch_mon
+  pip: name=cloudwatchmon
+  when: not cwm_use_venv
+
+- name: check credentials
+  fail: msg='You need to define aws access key and secret key if you do not have IAM policy for cloudwatch configured'
+  when: not cwm_use_venv and (cwm_aws.access_key == null or cwm_aws.access_key == null)
+
+- name: create creds files
+  template: src=boto.j2 dest={{ home }}/.boto
+  when: not cwm_iam_policy
+  become_user: "{{ user }}"
+
+- name: setup crontab entry
+  cron:
+    name: cloudwatch-mon
+    minute: "5"
+    job: "{{ cwm_venv_path }}/bin/mon-put-instance-stats.py {% for flag in cwm_flags %}--{{ flag }}{% endfor %}"
+    user: "{{ cwm_user }}"
+    cron_file: "{{ cwm_cronfile }}"
+  when: cwm_use_venv
+
+- name: setup crontab entry
+  cron:
+    name: cloudwatch-mon
+    minute: "5"
+    job: "mon-put-instance-stats.py {% for flag in cwm_flags %} --{{ flag }}{% endfor %}"
+    user: "{{ cwm_user }}"
+    cron_file: "{{ cwm_cronfile }}"
+  when: not cwm_use_venv
