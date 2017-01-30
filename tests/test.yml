@@ -6,7 +6,7 @@
       access_key: 'test'
       secret_key: 'test'
   roles:
-    - cloudwatch-mon-py
+    - ansible-ec2-cloudwatch
   pre_tasks:
     - yum: name=epel-release update_cache=yes
     - yum: name=python-pip update_cache=yes
