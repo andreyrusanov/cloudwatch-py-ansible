@@ -8,7 +8,7 @@ env:
 
 before_install:
   # Pull container.
-  - 'docker pull centos/python-27-centos7:latest'
+  - 'docker pull geerlingguy/docker-${distro}-ansible:latest'
 
 script:
   - container_id=$(mktemp)
