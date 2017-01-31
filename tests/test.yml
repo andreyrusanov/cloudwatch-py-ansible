@@ -13,4 +13,3 @@
       yum: name={{ item }} update_cache=yes
       with_items:
         - python-pip
-        - vixie-cron
