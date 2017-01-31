@@ -1,5 +1,7 @@
-Cloudwatch-mon
+Ansible Cloudwatch Monitoring Python 
 =========
+
+[![Build Status](https://travis-ci.org/andreyrusanov/cloudwatch-py-ansible.svg?branch=master)](https://travis-ci.org/andreyrusanov/cloudwatch-py-ansible)
 
 Configures your instances with cloudwatch monitoring scripts from [cloudwatch-mon-scripts-python](https://github.com/osiegmar/cloudwatch-mon-scripts-python)
 
