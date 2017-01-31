@@ -9,4 +9,8 @@
     - role_under_test
   pre_tasks:
     - yum: name=epel-release update_cache=yes
-    - yum: name=python-pip update_cache=yes
+    - name: install dependencies
+      yum: name={{ item }} update_cache=yes
+      with_items:
+        - python-pip
+        - vixie-cron
