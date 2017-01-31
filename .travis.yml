@@ -13,7 +13,7 @@ before_install:
 script:
   - container_id=$(mktemp)
   # Run container in detached state.
-  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"'
+  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"'
 
   # Ansible syntax check.
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
@@ -29,8 +29,8 @@ script:
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
-  # Ensure Java is installed.
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm which java'
+#  # Ensure crontab created
+#  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm which java'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
