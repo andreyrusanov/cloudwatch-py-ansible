@@ -14,12 +14,27 @@ Any issues relate to system setup like configuring locale is not covered by this
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+cwm_crontab: 'cloudwatch'  # crontab name
+cwm_use_venv: True  # install in virtualenv
+cwm_create_venv: "{{ cwm_use_venv }}"  #  is it needed to create virtualenv
+cwm_iam_policy: True 
+
+# should be set only if cwm_iam_policy is true
+cwm_aws:
+  access_key: null
+  secret_key: null
+
+cwm_user: root  # default user
+cwm_venv_path: "/home/{{ cwm_user }}/venv"
+cwm_cronfile: 'cloudwatch'  # cronfile name(if separate file for cron needs to be created)
+
+cwm_flags:
+  - mem-util
+```
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
 Example Playbook
 ----------------
@@ -28,14 +43,9 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: andreyrusanov.cloudwatch-py-ansible }
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+MIT
