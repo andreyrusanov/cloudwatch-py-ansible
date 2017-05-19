@@ -1,6 +1,6 @@
 galaxy_info:
   author: Andrii Rusanov
-  description: A role to set up Cloudwatch metrics with Cloudwatch Monitoring Scripts Python(https://github.com/osiegmar/cloudwatch-mon-scripts-python)
+  description: "A role to set up Cloudwatch metrics with Cloudwatch Monitoring Scripts Python(https://github.com/osiegmar/cloudwatch-mon-scripts-python)"
   
   license: MIT
   
